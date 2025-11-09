@@ -1,24 +1,11 @@
-'use client';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { auth } from '../lib/firebaseClient';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+"use client";
+import Link from "next/link";
+import { useState } from "react";
+import { useAuth } from "../lib/AuthContext";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsub();
-  }, []);
-
-  const handleLogout = async () => {
-    await signOut(auth);
-    setUser(null);
-  };
+  const { user, logout } = useAuth();
 
   return (
     <nav className="bg-white shadow p-4">
@@ -31,7 +18,11 @@ export default function Navbar() {
           ☰
         </button>
 
-        <div className={`md:flex md:space-x-4 items-center ${open ? 'block' : 'hidden'}`}>
+        <div
+          className={`md:flex md:space-x-4 items-center ${
+            open ? "block" : "hidden"
+          }`}
+        >
           <Link href="/">Home</Link>
           <Link href="/about">About Us</Link>
           <Link href="/students">Students</Link>
@@ -40,10 +31,9 @@ export default function Navbar() {
           <Link href="/gallery">Gallery</Link>
           <Link href="/contact">Contact Us</Link>
 
-          {/* Login / Logout Button */}
           {user ? (
             <button
-              onClick={handleLogout}
+              onClick={logout}
               className="ml-4 bg-red-500 text-white px-3 py-1 rounded"
             >
               Logout

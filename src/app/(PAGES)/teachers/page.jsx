@@ -26,7 +26,7 @@ export default function TeachersPage() {
   if (loading) return <p>Loading staff...</p>;
 
   return (
-    <div>
+    <div className="max-w-6xl  mx-auto">
       <h2 className="text-2xl font-semibold mb-4">Teachers & Staff</h2>
       <ul className="space-y-2">
         {teachers.length === 0 && <p>No staff found.</p>}

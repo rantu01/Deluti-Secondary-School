@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const images = [
-  '/photo1.jpg',
+  '/photo1.avif',
   '/photo2.jpg',
   '/photo3.jpg',
 ];
@@ -23,11 +23,11 @@ export default function Hero() {
   };
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 ">
       <Slider {...settings}>
         {images.map((img, i) => (
           <div key={i}>
-            <img src={img} alt={`Hero ${i}`} className="w-full h-96 object-cover rounded" />
+            <img src={img} alt={`Hero ${i}`} className="w-full h-96 object-cover rounded-2xl" />
           </div>
         ))}
       </Slider>

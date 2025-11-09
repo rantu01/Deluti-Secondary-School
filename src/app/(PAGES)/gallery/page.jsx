@@ -18,8 +18,8 @@ export default function GalleryPage() {
   }, []);
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold mb-4">Gallery</h2>
+    <div className='max-w-6xl  mx-auto'>
+      <h2 className="text-2xl font-semibold mb-4 ">Gallery</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {images.map((img, idx) => (
           <div key={idx} className="border p-2 rounded">

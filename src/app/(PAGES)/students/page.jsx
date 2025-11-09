@@ -26,7 +26,7 @@ export default function StudentsPage() {
   if (loading) return <p>Loading students...</p>;
 
   return (
-    <div>
+    <div className="max-w-6xl  mx-auto">
       <h2 className="text-2xl font-semibold mb-4">Students List</h2>
       <ul className="space-y-2">
         {students.length === 0 && <p>No students found.</p>}
