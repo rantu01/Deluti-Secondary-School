@@ -22,20 +22,16 @@ import {
 import { useState, useEffect } from 'react';
 
 const EnhancedFooter = () => {
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [currentYear] = useState(new Date().getFullYear());
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400);
-    };
+    const handleScroll = () => setShowScrollTop(window.scrollY > 400);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const footerSections = [
     {
@@ -52,8 +48,7 @@ const EnhancedFooter = () => {
             </div>
           </div>
           <p className="text-gray-300 leading-relaxed">
-            শিক্ষা, শৃঙ্খলা, দেশপ্রেম - এই是我们的 মূলমন্ত্র। আমরা শিক্ষার্থীদের 
-            সার্বিক উন্নতি, নৈতিকতা ও দেশপ্রেমে উদ্বুদ্ধকরনের জন্য প্রতিশ্রুতিবদ্ধ।
+            শিক্ষা, শৃঙ্খলা, দেশপ্রেম - আমাদের মূলমন্ত্র। আমরা শিক্ষার্থীদের সার্বিক উন্নতি, নৈতিকতা ও দেশপ্রেমে উদ্বুদ্ধ করতে প্রতিশ্রুতিবদ্ধ।
           </p>
           <div className="flex items-center space-x-2 text-blue-200">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -72,11 +67,11 @@ const EnhancedFooter = () => {
             { icon: Award, label: "ফলাফল", href: "/results" },
             { icon: Calendar, label: "ক্যালেন্ডার", href: "/calendar" },
             { icon: Download, label: "ভর্তি ফর্ম", href: "/admission" }
-          ].map((link, index) => (
+          ].map(link => (
             <motion.li key={link.href} whileHover={{ x: 5 }}>
               <a
                 href={link.href}
-                className="flex items-center space-x-3 text-gray-300 hover:text-white transition-all duration-300 group py-2"
+                className="flex items-center space-x-3 text-gray-300 hover:text-white transition-all duration-300 py-2"
               >
                 <link.icon className="w-4 h-4 text-blue-400 group-hover:text-blue-300 transition-colors" />
                 <span className="font-medium">{link.label}</span>
@@ -91,26 +86,11 @@ const EnhancedFooter = () => {
       content: (
         <ul className="space-y-4">
           {[
-            {
-              icon: MapPin,
-              text: "ডেলুটি, জেসোর, বাংলাদেশ",
-              subtext: "খুলনা বিভাগ",
-              color: "text-green-400"
-            },
-            {
-              icon: Phone,
-              text: "+৮৮০ ১৭XX-XXXXXX",
-              subtext: "প্রধান শিক্ষক",
-              color: "text-blue-400"
-            },
-            {
-              icon: Mail,
-              text: "info@delutischool.edu.bd",
-              subtext: "ইমেইল",
-              color: "text-purple-400"
-            }
-          ].map((contact, index) => (
-            <motion.li key={index} whileHover={{ x: 3 }} className="flex items-start space-x-3">
+            { icon: MapPin, text: "ডেলুটি, জেসোর, বাংলাদেশ", subtext: "খুলনা বিভাগ", color: "text-green-400" },
+            { icon: Phone, text: "+৮৮০ ১৭XX-XXXXXX", subtext: "প্রধান শিক্ষক", color: "text-blue-400" },
+            { icon: Mail, text: "info@delutischool.edu.bd", subtext: "ইমেইল", color: "text-purple-400" }
+          ].map((contact, idx) => (
+            <motion.li key={idx} whileHover={{ x: 3 }} className="flex items-start space-x-3">
               <contact.icon className={`w-5 h-5 mt-1 ${contact.color}`} />
               <div>
                 <p className="text-white font-medium">{contact.text}</p>
@@ -125,57 +105,33 @@ const EnhancedFooter = () => {
       title: "সংযুক্ত হোন",
       content: (
         <div className="space-y-6">
-          <div>
-            <p className="text-gray-300 mb-4">
-              আমাদের সামাজিক মাধ্যমের সাথে সংযুক্ত থাকুন এবং সর্বশেষ আপডেট পান।
-            </p>
-            <div className="flex space-x-3">
-              {[
-                { icon: Facebook, href: "#", color: "bg-blue-600 hover:bg-blue-700", label: "Facebook" },
-                { icon: Twitter, href: "#", color: "bg-sky-500 hover:bg-sky-600", label: "Twitter" },
-                { icon: Instagram, href: "#", color: "bg-pink-600 hover:bg-pink-700", label: "Instagram" },
-                { icon: Youtube, href: "#", color: "bg-red-600 hover:bg-red-700", label: "YouTube" }
-              ].map((social, index) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`${social.color} w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-lg transition-all duration-300 group`}
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                </motion.a>
-              ))}
-            </div>
+          <p className="text-gray-300 mb-4">আমাদের সামাজিক মাধ্যমে সংযুক্ত থাকুন এবং সর্বশেষ আপডেট পান।</p>
+          <div className="flex space-x-3">
+            {[
+              { icon: Facebook, href: "#", color: "bg-blue-600 hover:bg-blue-700", label: "Facebook" },
+              { icon: Twitter, href: "#", color: "bg-sky-500 hover:bg-sky-600", label: "Twitter" },
+              { icon: Instagram, href: "#", color: "bg-pink-600 hover:bg-pink-700", label: "Instagram" },
+              { icon: Youtube, href: "#", color: "bg-red-600 hover:bg-red-700", label: "YouTube" }
+            ].map(social => (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className={`${social.color} w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-lg transition-all duration-300 group`}
+                aria-label={social.label}
+              >
+                <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </motion.a>
+            ))}
           </div>
-          
-          
         </div>
       )
     }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6
-      }
-    }
-  };
+  const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.2 } } };
+  const itemVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 
   return (
     <>
@@ -206,7 +162,7 @@ const EnhancedFooter = () => {
       >
         {/* Decorative Top Border */}
         <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-1 w-full"></div>
-        
+
         <div className="p-8 lg:p-12">
           <motion.div
             variants={containerVariants}
@@ -231,28 +187,24 @@ const EnhancedFooter = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
             viewport={{ once: true }}
-            className="border-t border-gray-700 mt-12 pt-8"
+            className="border-t border-gray-700 mt-12 pt-8 flex flex-col lg:flex-row items-center justify-between space-y-4 lg:space-y-0"
           >
-            <div className="flex flex-col lg:flex-row items-center justify-between space-y-4 lg:space-y-0">
-              <div className="flex items-center space-x-4 text-gray-400">
-                <div className="flex items-center space-x-2">
-                  <Heart className="w-4 h-4 text-red-400" />
-                  <span>গর্বে তৈরি বাংলাদেশে</span>
-                </div>
-                <div className="w-1 h-1 bg-gray-600 rounded-full"></div>
-                <span>শিক্ষা মন্ত্রণালয় অনুমোদিত</span>
+            <div className="flex items-center space-x-4 text-gray-400">
+              <div className="flex items-center space-x-2">
+                <Heart className="w-4 h-4 text-red-400" />
+                <span>গর্বে তৈরি বাংলাদেশে</span>
               </div>
-              
-              <div className="text-center lg:text-right">
-                <p className="text-gray-400 flex items-center justify-center lg:justify-end space-x-2">
-                  <span>© {currentYear} ডেলুটি মাধ্যমিক বিদ্যালয়</span>
-                  <span className="hidden sm:inline">•</span>
-                  <span className="block sm:inline">সকল অধিকার সংরক্ষিত</span>
-                </p>
-                <p className="text-gray-500 text-sm mt-2">
-                  Developed with ❤️ for better education
-                </p>
-              </div>
+              <div className="w-1 h-1 bg-gray-600 rounded-full"></div>
+              <span>শিক্ষা মন্ত্রণালয় অনুমোদিত</span>
+            </div>
+
+            <div className="text-center lg:text-right">
+              <p className="text-gray-400 flex flex-col sm:flex-row items-center justify-center lg:justify-end space-x-0 sm:space-x-2">
+                <span>© {currentYear} ডেলুটি মাধ্যমিক বিদ্যালয়</span>
+                <span className="hidden sm:inline">•</span>
+                <span>সকল অধিকার সংরক্ষিত</span>
+              </p>
+              <p className="text-gray-500 text-sm mt-2">Developed with ❤️ for better education</p>
             </div>
           </motion.div>
         </div>

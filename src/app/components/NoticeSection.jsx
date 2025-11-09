@@ -11,7 +11,6 @@ import {
   AlertTriangle,
   Info,
   Megaphone,
-  X,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
@@ -45,7 +44,7 @@ const NoticeSection = () => {
     {
       id: 3,
       title: "এই সেশনে নতুন শিক্ষকগণ যোগদান করেছেন",
-      description: "২০২৫ শিক্ষাবর্ষে আমাদের বিদ্যালয়ে ৫ জন নতুন квалифициকৃত শিক্ষক যোগদান করেছেন। তাদেরকে স্বাগতম জানাই।",
+      description: "২০২৫ শিক্ষাবর্ষে আমাদের বিদ্যালয়ে ৫ জন নতুন শিক্ষক যোগদান করেছেন। তাদেরকে স্বাগতম জানাই।",
       icon: UserPlus,
       type: "staff",
       date: "২০২৫-০১-০৮",
@@ -90,28 +89,17 @@ const NoticeSection = () => {
     }
   };
 
-  // Auto-rotate notices
   useEffect(() => {
     if (isPaused) return;
-
     const interval = setInterval(() => {
       setCurrentNoticeIndex((prev) => (prev + 1) % notices.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, [isPaused, notices.length]);
 
-  const nextNotice = () => {
-    setCurrentNoticeIndex((prev) => (prev + 1) % notices.length);
-  };
-
-  const prevNotice = () => {
-    setCurrentNoticeIndex((prev) => (prev - 1 + notices.length) % notices.length);
-  };
-
-  const goToNotice = (index) => {
-    setCurrentNoticeIndex(index);
-  };
+  const nextNotice = () => setCurrentNoticeIndex((prev) => (prev + 1) % notices.length);
+  const prevNotice = () => setCurrentNoticeIndex((prev) => (prev - 1 + notices.length) % notices.length);
+  const goToNotice = (index) => setCurrentNoticeIndex(index);
 
   const currentNotice = notices[currentNoticeIndex];
   const UrgencyIcon = getUrgencyIcon(currentNotice.urgency);
@@ -130,9 +118,9 @@ const NoticeSection = () => {
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Header Section */}
-        <div className="bg-white/10 backdrop-blur-lg border-b border-white/20 p-6">
+        <div className="bg-white/10 backdrop-blur-lg border-b border-white/20 p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 w-full sm:w-auto">
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 10 }}
                 className="bg-white/20 backdrop-blur-sm rounded-2xl p-3 shadow-lg"
@@ -143,17 +131,17 @@ const NoticeSection = () => {
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="bg-white text-red-600 px-4 py-2 rounded-full text-sm font-bold shadow-lg inline-flex items-center space-x-2 mb-2"
+                  className="bg-white text-red-600 px-3 py-1 rounded-full text-xs sm:text-sm font-bold shadow-lg inline-flex items-center space-x-1 mb-1"
                 >
-                  <Bell className="w-4 h-4" />
+                  <Bell className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span>জরুরি নোটিশ</span>
                 </motion.div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-white">গুরুত্বপূর্ণ ঘোষণা</h2>
+                <h2 className="text-xl sm:text-2xl font-bold text-white">গুরুত্বপূর্ণ ঘোষণা</h2>
               </div>
             </div>
 
             {/* Navigation Controls */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 mt-3 sm:mt-0">
               <motion.button
                 whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.2)' }}
                 whileTap={{ scale: 0.9 }}
@@ -168,9 +156,7 @@ const NoticeSection = () => {
                   <button
                     key={index}
                     onClick={() => goToNotice(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === currentNoticeIndex ? 'bg-white scale-125' : 'bg-white/50'
-                    }`}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentNoticeIndex ? 'bg-white scale-125' : 'bg-white/50'}`}
                   />
                 ))}
               </div>
@@ -188,7 +174,7 @@ const NoticeSection = () => {
         </div>
 
         {/* Notice Content */}
-        <div className="p-6 sm:p-8">
+        <div className="p-4 sm:p-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentNotice.id}
@@ -196,39 +182,29 @@ const NoticeSection = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.3 }}
-              className="space-y-6"
+              className="space-y-4 sm:space-y-6"
             >
               {/* Main Notice */}
-              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-                <div className="flex items-start space-x-4">
+              <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 sm:p-6 border border-white/20">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
                   <motion.div
-                    animate={{ 
-                      scale: [1, 1.2, 1],
-                    }}
-                    transition={{ 
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatDelay: 3
-                    }}
-                    className="flex-shrink-0 w-4 h-4 bg-white rounded-full mt-2"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                    className="flex-shrink-0 w-3 h-3 sm:w-4 sm:h-4 bg-white rounded-full mt-1 sm:mt-2"
                   />
                   <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                      <h3 className="text-xl sm:text-2xl font-bold text-white">
-                        {currentNotice.title}
-                      </h3>
-                      <div className="flex items-center space-x-2 text-white/80">
-                        <Clock className="w-4 h-4" />
-                        <span className="text-sm">{currentNotice.date}</span>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 mb-2 sm:mb-3">
+                      <h3 className="text-lg sm:text-xl font-bold text-white">{currentNotice.title}</h3>
+                      <div className="flex items-center space-x-1 sm:space-x-2 text-white/80 text-xs sm:text-sm">
+                        <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                        <span>{currentNotice.date}</span>
                       </div>
                     </div>
-                    <p className="text-white/90 leading-relaxed mb-4">
-                      {currentNotice.description}
-                    </p>
+                    <p className="text-white/90 leading-relaxed text-sm sm:text-base mb-2 sm:mb-4">{currentNotice.description}</p>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 border border-white/30"
+                      className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-semibold px-4 sm:px-6 py-2 sm:py-3 rounded-xl transition-all duration-300 border border-white/30 text-sm sm:text-base"
                     >
                       {currentNotice.action}
                     </motion.button>
@@ -237,24 +213,22 @@ const NoticeSection = () => {
               </div>
 
               {/* Additional Notices Preview */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 {notices
                   .filter((_, index) => index !== currentNoticeIndex)
                   .slice(0, 2)
-                  .map((notice, index) => {
+                  .map((notice) => {
                     const NoticeIcon = notice.icon;
                     return (
                       <motion.div
                         key={notice.id}
                         whileHover={{ scale: 1.02, y: -2 }}
                         onClick={() => goToNotice(notices.findIndex(n => n.id === notice.id))}
-                        className="bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10 cursor-pointer transition-all duration-300"
+                        className="bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-white/10 cursor-pointer transition-all duration-300"
                       >
-                        <div className="flex items-center space-x-3">
-                          <NoticeIcon className="w-5 h-5 text-white/80" />
-                          <span className="text-white font-medium text-sm line-clamp-2">
-                            {notice.title}
-                          </span>
+                        <div className="flex items-center space-x-2 sm:space-x-3">
+                          <NoticeIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white/80" />
+                          <span className="text-white font-medium text-xs sm:text-sm line-clamp-2">{notice.title}</span>
                         </div>
                       </motion.div>
                     );
@@ -265,9 +239,9 @@ const NoticeSection = () => {
         </div>
 
         {/* Footer Stats */}
-        <div className="bg-white/5 backdrop-blur-lg border-t border-white/10 p-4">
-          <div className="flex items-center justify-between text-white/70 text-sm">
-            <div className="flex items-center space-x-4">
+        <div className="bg-white/5 backdrop-blur-lg border-t border-white/10 p-3 sm:p-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between text-white/70 text-xs sm:text-sm space-y-1 sm:space-y-0">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <span>মোট নোটিশ: {notices.length}</span>
               <span>•</span>
               <span>সর্বশেষ আপডেট: আজ</span>
@@ -277,7 +251,7 @@ const NoticeSection = () => {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
               >
-                <Bell className="w-4 h-4" />
+                <Bell className="w-4 h-4 sm:w-5 sm:h-5" />
               </motion.div>
               <span>লাইভ আপডেট</span>
             </div>
