@@ -260,7 +260,7 @@ export default function AuthPage() {
         )}
 
         {/* Google Sign In */}
-        <button
+        {/* <button
           onClick={handleGoogleSignIn}
           disabled={loading}
           className="w-full bg-white border-2 border-gray-200 text-gray-700 py-4 rounded-xl font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 flex items-center justify-center mb-6 shadow-sm hover:shadow-md"
@@ -271,7 +271,7 @@ export default function AuthPage() {
             className="w-6 h-6 mr-3"
           />
           Google দিয়ে লগইন করুন
-        </button>
+        </button> */}
 
         {/* Divider */}
         <div className="flex items-center mb-6">
@@ -329,7 +329,7 @@ export default function AuthPage() {
         </form>
 
         {/* Toggle between Login/Register */}
-        <div className="text-center mt-6 pt-6 border-t border-gray-200">
+        {/* <div className="text-center mt-6 pt-6 border-t border-gray-200">
           <p className="text-gray-600">
             {isLogin ? "অ্যাকাউন্ট নেই?" : "ইতিমধ্যে অ্যাকাউন্ট আছে?"}{" "}
             <button
@@ -345,7 +345,7 @@ export default function AuthPage() {
                 : "এখানে ক্লিক করে লগইন করুন"}
             </button>
           </p>
-        </div>
+        </div> */}
 
         {/* Additional Info */}
         <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
