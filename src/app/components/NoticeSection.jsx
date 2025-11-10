@@ -4,9 +4,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Bell,
-  Calendar,
-  School,
-  UserPlus,
   Clock,
   AlertTriangle,
   Info,
@@ -15,53 +12,45 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const NoticeSection = () => {
+  const [notices, setNotices] = useState([]);
   const [currentNoticeIndex, setCurrentNoticeIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [loading, setLoading] = useState(true);
+  console.log(notices)
 
-  const notices = [
-    {
-      id: 1,
-      title: "বার্ষিক পরীক্ষার সময়সূচী প্রকাশিত হয়েছে",
-      description: "২০২৫ শিক্ষাবর্ষের বার্ষিক পরীক্ষার সম্পূর্ণ সময়সূচী প্রকাশ করা হয়েছে। সকল শিক্ষার্থী ও অভিভাবকগণ ডাউনলোড করুন।",
-      icon: Calendar,
-      type: "exam",
-      date: "২০২৫-০১-১৫",
-      urgency: "high",
-      action: "ডাউনলোড সময়সূচী"
-    },
-    {
-      id: 2,
-      title: "বিদ্যালয় ১৫ই জানুয়ারি পুনরায় খুলবে",
-      description: "শীতকালীন ছুটির পর বিদ্যালয় ১৫ই জানুয়ারি, ২০২৫ তারিখে পুনরায় খোলা হবে। সকল শিক্ষার্থী সময়মতো উপস্থিত থাকবেন।",
-      icon: School,
-      type: "reopening",
-      date: "২০২৫-০১-১০",
-      urgency: "medium",
-      action: "ক্যালেন্ডার দেখুন"
-    },
-    {
-      id: 3,
-      title: "এই সেশনে নতুন শিক্ষকগণ যোগদান করেছেন",
-      description: "২০২৫ শিক্ষাবর্ষে আমাদের বিদ্যালয়ে ৫ জন নতুন শিক্ষক যোগদান করেছেন। তাদেরকে স্বাগতম জানাই।",
-      icon: UserPlus,
-      type: "staff",
-      date: "২০২৫-০১-০৮",
-      urgency: "low",
-      action: "শিক্ষকবৃন্দ দেখুন"
-    },
-    {
-      id: 4,
-      title: "অনলাইন ভর্তি প্রক্রিয়া শুরু হয়েছে",
-      description: "নতুন শিক্ষাবর্ষের জন্য অনলাইন ভর্তি প্রক্রিয়া শুরু হয়েছে। আবেদন ফর্ম ও প্রয়োজনীয় তথ্য ওয়েবসাইটে পাওয়া যাচ্ছে।",
-      icon: Clock,
-      type: "admission",
-      date: "২০২৫-০১-০৫",
-      urgency: "high",
-      action: "ভর্তি হওয়া"
+  // Fetch notices from API
+  const fetchNotices = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get('/api/notices');
+      const sortedNotices = res.data.sort((a, b) => new Date(b.date) - new Date(a.date));
+      setNotices(sortedNotices);
+    } catch (err) {
+      console.error("Error fetching notices:", err);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  useEffect(() => {
+    fetchNotices();
+  }, []);
+
+  // Carousel auto-slide
+  useEffect(() => {
+    if (isPaused || notices.length === 0) return;
+    const interval = setInterval(() => {
+      setCurrentNoticeIndex((prev) => (prev + 1) % notices.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused, notices]);
+
+  const nextNotice = () => setCurrentNoticeIndex((prev) => (prev + 1) % notices.length);
+  const prevNotice = () => setCurrentNoticeIndex((prev) => (prev - 1 + notices.length) % notices.length);
+  const goToNotice = (index) => setCurrentNoticeIndex(index);
 
   const getUrgencyColor = (urgency) => {
     switch (urgency) {
@@ -89,17 +78,21 @@ const NoticeSection = () => {
     }
   };
 
-  useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(() => {
-      setCurrentNoticeIndex((prev) => (prev + 1) % notices.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [isPaused, notices.length]);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center p-10 text-gray-500">
+        Loading notices...
+      </div>
+    );
+  }
 
-  const nextNotice = () => setCurrentNoticeIndex((prev) => (prev + 1) % notices.length);
-  const prevNotice = () => setCurrentNoticeIndex((prev) => (prev - 1 + notices.length) % notices.length);
-  const goToNotice = (index) => setCurrentNoticeIndex(index);
+  if (!notices.length) {
+    return (
+      <div className="flex justify-center items-center p-10 text-gray-500">
+        No notices found.
+      </div>
+    );
+  }
 
   const currentNotice = notices[currentNoticeIndex];
   const UrgencyIcon = getUrgencyIcon(currentNotice.urgency);
@@ -112,7 +105,7 @@ const NoticeSection = () => {
       viewport={{ once: true }}
       className="w-full"
     >
-      <div 
+      <div
         className={`bg-gradient-to-r ${getUrgencyColor(currentNotice.urgency)} mb-6 rounded-3xl shadow-2xl overflow-hidden transform hover:scale-[1.02] transition-all duration-500 cursor-pointer`}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
@@ -150,7 +143,7 @@ const NoticeSection = () => {
               >
                 <ChevronLeft className="w-5 h-5" />
               </motion.button>
-              
+
               <div className="flex space-x-1">
                 {notices.map((_, index) => (
                   <button
@@ -177,7 +170,7 @@ const NoticeSection = () => {
         <div className="p-4 sm:p-6">
           <AnimatePresence mode="wait">
             <motion.div
-              key={currentNotice.id}
+              key={currentNotice._id}
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
@@ -197,10 +190,10 @@ const NoticeSection = () => {
                       <h3 className="text-lg sm:text-xl font-bold text-white">{currentNotice.title}</h3>
                       <div className="flex items-center space-x-1 sm:space-x-2 text-white/80 text-xs sm:text-sm">
                         <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                        <span>{currentNotice.date}</span>
+                        <span>{new Date(currentNotice.date).toLocaleDateString('bn-BD')}</span>
                       </div>
                     </div>
-                    <p className="text-white/90 leading-relaxed text-sm sm:text-base mb-2 sm:mb-4">{currentNotice.description}</p>
+                    <p className="text-white/90 leading-relaxed text-sm sm:text-base mb-2 sm:mb-4">{currentNotice.content}</p>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -218,12 +211,12 @@ const NoticeSection = () => {
                   .filter((_, index) => index !== currentNoticeIndex)
                   .slice(0, 2)
                   .map((notice) => {
-                    const NoticeIcon = notice.icon;
+                    const NoticeIcon = Bell; // Could map a type -> icon if you want
                     return (
                       <motion.div
-                        key={notice.id}
+                        key={notice._id}
                         whileHover={{ scale: 1.02, y: -2 }}
-                        onClick={() => goToNotice(notices.findIndex(n => n.id === notice.id))}
+                        onClick={() => goToNotice(notices.findIndex(n => n._id === notice._id))}
                         className="bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-white/10 cursor-pointer transition-all duration-300"
                       >
                         <div className="flex items-center space-x-2 sm:space-x-3">

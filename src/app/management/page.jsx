@@ -156,26 +156,27 @@ export default function ManagementDashboard() {
           {/* Quick Actions */}
           <div className="mt-8 flex flex-wrap gap-4 justify-center">
             <button 
-              onClick={() => router.push('/management/students/add')}
+              onClick={() => router.push('/management/students')}
               className="bg-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center"
             >
               <span className="mr-2">➕</span>
               নতুন শিক্ষার্থী যোগ করুন
             </button>
             <button 
-              onClick={() => router.push('/management/notices/add')}
+              onClick={() => router.push('/management/notices')}
               className="bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center"
             >
               <span className="mr-2">📢</span>
               নোটিশ প্রকাশ করুন
             </button>
             <button 
-              onClick={() => router.push('/management/results/upload')}
-              className="bg-purple-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center"
+              onClick={() => router.push('/management/staff')}
+              className="bg-green-800 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center"
             >
-              <span className="mr-2">📤</span>
-              ফলাফল আপলোড করুন
+              <span className="mr-2">📢</span>
+              স্টাফ ম্যানেজমেন্ট
             </button>
+            
           </div>
         </div>
       </div>
