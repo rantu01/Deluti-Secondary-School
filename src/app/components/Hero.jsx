@@ -1,36 +1,32 @@
-// app/components/Hero.jsx
-'use client';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+"use client";
+
+import { useState, useEffect } from "react";
 
 const images = [
-  '/photo1.avif',
-  '/photo2.jpg',
-  '/photo3.jpg',
+  "/photo1.avif",
+  "/photo2.jpg",
+  "/photo3.jpg",
 ];
 
 export default function Hero() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-  };
+  const [currentImage, setCurrentImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 4000); // Change image every 4 seconds
+
+    return () => clearInterval(interval); // Clean up on unmount
+  }, []);
 
   return (
-    <div className="mt-4 ">
-      <Slider {...settings}>
-        {images.map((img, i) => (
-          <div key={i}>
-            <img src={img} alt={`Hero ${i}`} className="w-full h-96 object-cover rounded-2xl" />
-          </div>
-        ))}
-      </Slider>
+    <div className="relative w-full h-64 sm:h-96 md:h-[500px] overflow-hidden rounded-2xl shadow-lg">
+      <img
+        src={images[currentImage]}
+        alt="Hero Image"
+        className="w-full h-full object-cover transition-opacity duration-1000"
+      />
+      
     </div>
   );
 }

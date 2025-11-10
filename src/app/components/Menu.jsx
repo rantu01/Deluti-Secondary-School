@@ -58,7 +58,7 @@ export default function EnhancedMenu() {
   ];
 
   const managementItems = [
-    { href: "/management/dashboard", label: "Dashboard", icon: BarChart3 },
+    { href: "/management", label: "Dashboard", icon: BarChart3 },
     { href: "/management/students", label: "Student Management", icon: Users },
     { href: "/management/teachers", label: "Staff Management", icon: UserCog },
     {

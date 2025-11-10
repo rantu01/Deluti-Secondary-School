@@ -75,11 +75,16 @@ export default function NoticesManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 lg:p-6">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <div className="flex justify-between items-center">
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
+      <div className="max-w-5xl mx-auto space-y-6">
+
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
           <h1 className="text-3xl font-bold text-blue-600">নোটিশ ব্যবস্থাপনা</h1>
-          <button onClick={() => fetchNotices(true)} className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-2xl hover:bg-gray-200">
+          <button
+            onClick={() => fetchNotices(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-2xl hover:bg-gray-200"
+          >
             <RefreshCw className={`w-5 h-5 ${refreshing ? "animate-spin" : ""}`} />
             Refresh
           </button>
@@ -110,18 +115,42 @@ export default function NoticesManagement() {
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
             <div>
               <label>শিরোনাম *</label>
-              <input name="title" value={form.title} onChange={handleChange} required className="w-full px-3 py-2 border rounded-2xl" />
+              <input
+                name="title"
+                value={form.title}
+                onChange={handleChange}
+                required
+                className="w-full px-3 py-2 border rounded-2xl focus:ring-2 focus:ring-blue-400"
+              />
             </div>
             <div>
               <label>বিস্তারিত *</label>
-              <textarea name="content" value={form.content} onChange={handleChange} required rows={4} className="w-full px-3 py-2 border rounded-2xl"></textarea>
+              <textarea
+                name="content"
+                value={form.content}
+                onChange={handleChange}
+                required
+                rows={4}
+                className="w-full px-3 py-2 border rounded-2xl focus:ring-2 focus:ring-blue-400"
+              ></textarea>
             </div>
-            <div className="flex gap-3">
-              <button type="submit" disabled={submitting} className="bg-blue-500 text-white px-4 py-2 rounded-2xl flex-1 flex justify-center items-center gap-2">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                type="submit"
+                disabled={submitting}
+                className="bg-blue-500 text-white px-4 py-2 rounded-2xl flex-1 flex justify-center items-center gap-2"
+              >
                 {submitting ? <Loader2 className="animate-spin w-5 h-5" /> : <Save className="w-5 h-5" />}
                 {submitting ? "Saving..." : editingId ? "Update Notice" : "Add Notice"}
               </button>
-              <button type="button" onClick={() => { setForm({ title: "", content: "" }); setEditingId(null); }} className="border px-4 py-2 rounded-2xl flex-1">
+              <button
+                type="button"
+                onClick={() => {
+                  setForm({ title: "", content: "" });
+                  setEditingId(null);
+                }}
+                className="border px-4 py-2 rounded-2xl flex-1"
+              >
                 Cancel
               </button>
             </div>
@@ -130,26 +159,32 @@ export default function NoticesManagement() {
 
         {/* Notices Table */}
         <div className="overflow-x-auto bg-white rounded-3xl shadow-xl border border-gray-100">
-          <table className="w-full min-w-[600px]">
+          <table className="w-full min-w-[600px] text-sm sm:text-base">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
-                <th className="px-4 py-2 text-left">শিরোনাম</th>
-                <th className="px-4 py-2 text-left">বিস্তারিত</th>
-                <th className="px-4 py-2 text-left">তারিখ</th>
-                <th className="px-4 py-2 text-left">Actions</th>
+                <th className="px-2 sm:px-4 py-2 text-left">শিরোনাম</th>
+                <th className="px-2 sm:px-4 py-2 text-left">বিস্তারিত</th>
+                <th className="px-2 sm:px-4 py-2 text-left">তারিখ</th>
+                <th className="px-2 sm:px-4 py-2 text-left">Actions</th>
               </tr>
             </thead>
             <tbody>
               {notices.map((n) => (
                 <tr key={n._id} className="border-b border-gray-200 hover:bg-gray-50">
-                  <td className="px-2 py-2">{n.title}</td>
-                  <td className="px-2 py-2">{n.content}</td>
-                  <td className="px-2 py-2">{new Date(n.date).toLocaleDateString()}</td>
-                  <td className="px-2 py-2 flex gap-2">
-                    <button onClick={() => handleEdit(n)} className="bg-yellow-400 text-white px-2 py-1 rounded flex items-center gap-1">
+                  <td className="px-2 sm:px-4 py-2 break-words">{n.title}</td>
+                  <td className="px-2 sm:px-4 py-2 break-words">{n.content}</td>
+                  <td className="px-2 sm:px-4 py-2">{new Date(n.date).toLocaleDateString()}</td>
+                  <td className="px-2 sm:px-4 py-2 flex flex-wrap gap-2">
+                    <button
+                      onClick={() => handleEdit(n)}
+                      className="bg-yellow-400 text-white px-2 py-1 rounded flex items-center gap-1"
+                    >
                       <Edit className="w-4 h-4" /> Edit
                     </button>
-                    <button onClick={() => handleDelete(n._id)} className="bg-red-500 text-white px-2 py-1 rounded flex items-center gap-1">
+                    <button
+                      onClick={() => handleDelete(n._id)}
+                      className="bg-red-500 text-white px-2 py-1 rounded flex items-center gap-1"
+                    >
                       <Trash2 className="w-4 h-4" /> Delete
                     </button>
                   </td>
