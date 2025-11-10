@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import { useAuth } from "../lib/AuthContext";
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, Transition } from '@headlessui/react';
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, Transition } from "@headlessui/react";
 import {
   Home,
   Images,
@@ -16,54 +16,58 @@ import {
   X,
   BookOpen,
   BarChart3,
-  School
-} from 'lucide-react';
-import Link from 'next/link';
+  School,
+} from "lucide-react";
+import Link from "next/link";
 
 export default function EnhancedMenu() {
   const { user } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigationItems = [
-    { 
-      href: "/", 
-      label: "Home", 
+    {
+      href: "/",
+      label: "Home",
       icon: Home,
-      description: "Back to homepage"
+      description: "Back to homepage",
     },
-    { 
-      href: "/gallery", 
-      label: "Gallery", 
+    {
+      href: "/gallery",
+      label: "Gallery",
       icon: Images,
-      description: "Photo gallery & events"
+      description: "Photo gallery & events",
     },
-    { 
-      href: "/results", 
-      label: "Results", 
+    {
+      href: "/results",
+      label: "Results",
       icon: Award,
-      description: "Exam results & reports"
+      description: "Exam results & reports",
     },
-    { 
-      href: "/students", 
-      label: "Students", 
+    {
+      href: "/students",
+      label: "Students",
       icon: Users,
-      description: "Student directory"
+      description: "Student directory",
     },
-    { 
-      href: "/teachers", 
-      label: "Staff", 
+    {
+      href: "/teachers",
+      label: "Staff",
       icon: UserCog,
-      description: "Faculty & staff"
-    }
+      description: "Faculty & staff",
+    },
   ];
 
   const managementItems = [
     { href: "/management/dashboard", label: "Dashboard", icon: BarChart3 },
     { href: "/management/students", label: "Student Management", icon: Users },
     { href: "/management/teachers", label: "Staff Management", icon: UserCog },
-    { href: "/management/academics", label: "Academic Settings", icon: BookOpen },
+    {
+      href: "/management/academics",
+      label: "Academic Settings",
+      icon: BookOpen,
+    },
     { href: "/management/school", label: "School Info", icon: School },
-    { href: "/management/settings", label: "System Settings", icon: Settings }
+    { href: "/management/settings", label: "System Settings", icon: Settings },
   ];
 
   return (
@@ -82,17 +86,17 @@ export default function EnhancedMenu() {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  whileHover={{ 
-                    scale: 1.05, 
+                  whileHover={{
+                    scale: 1.05,
                     y: -2,
-                    backgroundColor: "rgba(59, 130, 246, 0.1)"
+                    backgroundColor: "rgba(59, 130, 246, 0.1)",
                   }}
                   whileTap={{ scale: 0.95 }}
                   className="flex items-center space-x-2 px-4 py-3 rounded-xl text-gray-700 hover:text-blue-600 font-medium transition-all duration-200 group relative"
                 >
                   <item.icon className="w-4 h-4 transition-transform group-hover:scale-110" />
                   <span>{item.label}</span>
-                  
+
                   {/* Tooltip */}
                   <div className="absolute bottom-full mb-2 hidden group-hover:block bg-gray-900 text-white text-xs rounded py-1 px-2 whitespace-nowrap z-50">
                     {item.description}
@@ -105,13 +109,16 @@ export default function EnhancedMenu() {
             {/* Management Dropdown for Logged-in Users */}
             {user && (
               <Menu as="div" className="relative">
-                <Menu.Button as={motion.div}
+                <Menu.Button
+                  as={motion.div}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="flex items-center space-x-2 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100 text-blue-700 hover:text-blue-800 font-medium cursor-pointer group"
                 >
                   <Settings className="w-4 h-4" />
-                  <span><Link href="/management">Management</Link></span>
+                  <span>
+                    <Link href="/management">Management</Link>
+                  </span>
                 </Menu.Button>
               </Menu>
             )}
@@ -144,7 +151,7 @@ export default function EnhancedMenu() {
           {isMobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
               className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/40 mt-2 overflow-hidden"
@@ -166,34 +173,28 @@ export default function EnhancedMenu() {
                     <item.icon className="w-5 h-5" />
                     <div className="flex-1">
                       <div className="font-medium">{item.label}</div>
-                      <div className="text-xs text-gray-500">{item.description}</div>
+                      <div className="text-xs text-gray-500">
+                        {item.description}
+                      </div>
                     </div>
                   </motion.a>
                 ))}
 
                 {/* Management Section for Logged-in Users */}
                 {user && (
-                  <>
-                    <div className="px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 border-y border-blue-100">
-                      <p className="text-sm font-semibold text-blue-700">Management</p>
-                      <p className="text-xs text-blue-600">Administrative access</p>
-                    </div>
-                    {managementItems.map((item, index) => (
-                      <motion.a
-                        key={item.href}
-                        href={item.href}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: (navigationItems.length + index) * 0.1 }}
-                        whileHover={{ backgroundColor: "rgba(59, 130, 246, 0.1)" }}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex items-center space-x-3 px-6 py-3 text-gray-700 hover:text-blue-600 font-medium border-b border-gray-100 last:border-b-0 transition-colors duration-200"
-                      >
-                        <item.icon className="w-4 h-4" />
-                        <span className="text-sm">{item.label}</span>
-                      </motion.a>
-                    ))}
-                  </>
+                  <Menu as="div" className="relative">
+                    <Menu.Button
+                      as={motion.div}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center space-x-2 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-100 text-blue-700 hover:text-blue-800 font-medium cursor-pointer group"
+                    >
+                      <Settings className="w-4 h-4" />
+                      <span>
+                        <Link href="/management">Management</Link>
+                      </span>
+                    </Menu.Button>
+                  </Menu>
                 )}
               </div>
             </motion.div>
@@ -219,7 +220,8 @@ export default function EnhancedMenu() {
           ))}
           {user && (
             <Menu as="div" className="relative z-[9999]">
-              <Menu.Button as={motion.button}
+              <Menu.Button
+                as={motion.button}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className="flex flex-col items-center space-y-1 p-2 rounded-xl text-gray-600 hover:text-blue-600 transition-colors duration-200 z-[9999]"
@@ -245,7 +247,9 @@ export default function EnhancedMenu() {
                           href={item.href}
                           target="_blank"
                           className={`flex items-center space-x-3 w-full px-4 py-3 text-sm ${
-                            active ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                            active
+                              ? "bg-blue-50 text-blue-700"
+                              : "text-gray-700"
                           } transition-colors duration-200`}
                         >
                           <item.icon className="w-4 h-4" />
@@ -254,21 +258,24 @@ export default function EnhancedMenu() {
                       )}
                     </Menu.Item>
                   ))}
-                  {user && managementItems.slice(0, 3).map((item) => (
-                    <Menu.Item key={item.href}>
-                      {({ active }) => (
-                        <a
-                          href={item.href}
-                          className={`flex items-center space-x-3 w-full px-4 py-3 text-sm ${
-                            active ? 'bg-purple-50 text-purple-700' : 'text-gray-700'
-                          } transition-colors duration-200`}
-                        >
-                          <item.icon className="w-4 h-4" />
-                          <span>{item.label}</span>
-                        </a>
-                      )}
-                    </Menu.Item>
-                  ))}
+                  {user &&
+                    managementItems.slice(0, 3).map((item) => (
+                      <Menu.Item key={item.href}>
+                        {({ active }) => (
+                          <a
+                            href={item.href}
+                            className={`flex items-center space-x-3 w-full px-4 py-3 text-sm ${
+                              active
+                                ? "bg-purple-50 text-purple-700"
+                                : "text-gray-700"
+                            } transition-colors duration-200`}
+                          >
+                            <item.icon className="w-4 h-4" />
+                            <span>{item.label}</span>
+                          </a>
+                        )}
+                      </Menu.Item>
+                    ))}
                 </Menu.Items>
               </Transition>
             </Menu>

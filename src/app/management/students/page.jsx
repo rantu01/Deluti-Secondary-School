@@ -35,7 +35,7 @@ export default function StudentsManagement() {
   const [submitting, setSubmitting] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedClass, setSelectedClass] = useState("all");
+  const [selectedClass, setSelectedClass] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -64,17 +64,23 @@ export default function StudentsManagement() {
   // Filter students
   useEffect(() => {
     let filtered = students;
-    if (searchTerm) {
-      filtered = filtered.filter(
-        (s) =>
-          s.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          s.roll?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          s.email?.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-    if (selectedClass !== "all") {
+
+    // Only filter if a class is selected
+    if (selectedClass) {
+      if (searchTerm) {
+        filtered = filtered.filter(
+          (s) =>
+            s.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            s.roll?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            s.email?.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+
       filtered = filtered.filter((s) => s.class === selectedClass);
+    } else {
+      filtered = [];
     }
+
     setFilteredStudents(filtered);
   }, [students, searchTerm, selectedClass]);
 
@@ -121,7 +127,6 @@ export default function StudentsManagement() {
 
   const handleDelete = async (id) => {
     if (!confirm("Delete this student?")) return;
-    console.log("Deleting student with id:", id);
 
     try {
       const res = await axios.delete(`/api/students/${id}`);
@@ -156,7 +161,7 @@ export default function StudentsManagement() {
 
   const handleRefresh = () => fetchStudents(true);
 
-  const classes = ["all", ...new Set(students.map((s) => s.class))].sort();
+  const classes = [...new Set(students.map((s) => s.class))].sort();
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 lg:p-6">
@@ -201,17 +206,13 @@ export default function StudentsManagement() {
                   : "bg-green-50 border-green-200 text-green-700"
               } border px-4 py-3 rounded-2xl mb-4 flex items-center gap-2`}
             >
-              {successMessage.includes("Error") ? (
-                <AlertCircle className="w-5 h-5" />
-              ) : (
-                <CheckCircle className="w-5 h-5" />
-              )}
+              {successMessage.includes("Error") ? <AlertCircle className="w-5 h-5" /> : <CheckCircle className="w-5 h-5" />}
               {successMessage}
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Search & Filters */}
+        {/* Search & Class Filter */}
         <div className="bg-white rounded-3xl shadow-xl p-4 border border-gray-100 flex flex-col md:flex-row gap-3 md:gap-6 items-stretch">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -230,9 +231,10 @@ export default function StudentsManagement() {
               onChange={(e) => setSelectedClass(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
             >
+              <option value="">Select Class</option>
               {classes.map((cls) => (
                 <option key={cls} value={cls}>
-                  {cls === "all" ? "All Classes" : `Class ${cls}`}
+                  Class {cls}
                 </option>
               ))}
             </select>
@@ -303,7 +305,11 @@ export default function StudentsManagement() {
                 </div>
 
                 <div className="md:col-span-2 flex gap-3 pt-2">
-                  <button type="submit" disabled={submitting} className="bg-blue-500 text-white px-4 py-2 rounded-2xl flex-1 flex justify-center items-center gap-2">
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-2xl flex-1 flex justify-center items-center gap-2"
+                  >
                     {submitting ? <Loader2 className="animate-spin w-5 h-5" /> : <Save className="w-5 h-5" />}
                     {submitting ? "Saving..." : editingId ? "Update Student" : "Add Student"}
                   </button>
@@ -317,54 +323,60 @@ export default function StudentsManagement() {
         </AnimatePresence>
 
         {/* Students Table */}
-        <div className="overflow-x-auto bg-white rounded-3xl shadow-xl border border-gray-100">
-          <table className="w-full min-w-[600px]">
-            <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th className="px-4 py-2 text-left">Photo</th>
-                <th className="px-4 py-2 text-left">Name</th>
-                <th className="px-4 py-2 text-left">Roll</th>
-                <th className="px-4 py-2 text-left">Class</th>
-                <th className="px-4 py-2 text-left">Section</th>
-                <th className="px-4 py-2 text-left">Email</th>
-                <th className="px-4 py-2 text-left">Phone</th>
-                <th className="px-4 py-2 text-left">Address</th>
-                <th className="px-4 py-2 text-left">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredStudents.map((s) => (
-                <tr key={s._id} className="border-b border-gray-200 hover:bg-gray-50">
-                  <td className="px-2 py-2">
-                    <img src={s.photo || "https://via.placeholder.com/80"} alt="Student" className="w-12 h-12 rounded-full object-cover" />
-                  </td>
-                  <td className="px-2 py-2">{s.name}</td>
-                  <td className="px-2 py-2">{s.roll}</td>
-                  <td className="px-2 py-2">{s.class}</td>
-                  <td className="px-2 py-2">{s.section}</td>
-                  <td className="px-2 py-2">{s.email}</td>
-                  <td className="px-2 py-2">{s.phone}</td>
-                  <td className="px-2 py-2">{s.address}</td>
-                  <td className="px-2 py-2 flex gap-1">
-                    <button onClick={() => handleEdit(s)} className="bg-yellow-400 text-white px-2 py-1 rounded">
-                      Edit
-                    </button>
-                    <button onClick={() => handleDelete(s._id)} className="bg-red-500 text-white px-2 py-1 rounded">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {filteredStudents.length === 0 && !loading && (
+        {selectedClass ? (
+          <div className="overflow-x-auto bg-white rounded-3xl shadow-xl border border-gray-100">
+            <table className="w-full min-w-[600px]">
+              <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <td colSpan={9} className="text-center py-6 text-gray-500">
-                    No students found.
-                  </td>
+                  <th className="px-4 py-2 text-left">Photo</th>
+                  <th className="px-4 py-2 text-left">Name</th>
+                  <th className="px-4 py-2 text-left">Roll</th>
+                  <th className="px-4 py-2 text-left">Class</th>
+                  <th className="px-4 py-2 text-left">Section</th>
+                  <th className="px-4 py-2 text-left">Email</th>
+                  <th className="px-4 py-2 text-left">Phone</th>
+                  <th className="px-4 py-2 text-left">Address</th>
+                  <th className="px-4 py-2 text-left">Actions</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {filteredStudents.map((s) => (
+                  <tr key={s._id} className="border-b border-gray-200 hover:bg-gray-50">
+                    <td className="px-2 py-2">
+                      <img src={s.photo || "https://via.placeholder.com/80"} alt="Student" className="w-12 h-12 rounded-full object-cover" />
+                    </td>
+                    <td className="px-2 py-2">{s.name}</td>
+                    <td className="px-2 py-2">{s.roll}</td>
+                    <td className="px-2 py-2">{s.class}</td>
+                    <td className="px-2 py-2">{s.section}</td>
+                    <td className="px-2 py-2">{s.email}</td>
+                    <td className="px-2 py-2">{s.phone}</td>
+                    <td className="px-2 py-2">{s.address}</td>
+                    <td className="px-2 py-2 flex gap-1">
+                      <button onClick={() => handleEdit(s)} className="bg-yellow-400 text-white px-2 py-1 rounded">
+                        Edit
+                      </button>
+                      <button onClick={() => handleDelete(s._id)} className="bg-red-500 text-white px-2 py-1 rounded">
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {filteredStudents.length === 0 && !loading && (
+                  <tr>
+                    <td colSpan={9} className="text-center py-6 text-gray-500">
+                      No students found for this class.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="bg-yellow-50 border border-yellow-200 text-yellow-700 rounded-2xl p-6 text-center font-medium">
+            Please select a class to view students.
+          </div>
+        )}
       </div>
     </div>
   );

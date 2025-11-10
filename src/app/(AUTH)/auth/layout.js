@@ -7,8 +7,8 @@ export const metadata = {
 
 export default function AuthLayout({ children }) {
   return (
-    <div className="bg-gray-100 flex items-center justify-center min-h-screen">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <div className="bg-gray-100 flex items-center justify-center ">
+      <div className="bg-white p-8 rounded shadow-md w-full ">
         {children}
       </div>
     </div>

@@ -1,16 +1,27 @@
 import dbConnect from '../../../lib/dbConnect';
 import Result from '../../../models/Result';
 
-export async function DELETE(req, { params }) {
+export async function DELETE(req, context) {
   await dbConnect();
-  await Result.findByIdAndDelete(params.id);
+
+  const { id } = await context.params; // ✅ await the params
+  const deleted = await Result.findByIdAndDelete(id);
+
+  if (!deleted)
+    return new Response(JSON.stringify({ message: 'Result not found' }), { status: 404 });
+
   return new Response(JSON.stringify({ message: 'Deleted successfully' }), { status: 200 });
 }
 
-// Optional: Update result
-export async function PUT(req, { params }) {
+export async function PUT(req, context) {
   await dbConnect();
+
+  const { id } = await context.params; // ✅ await the params
   const body = await req.json();
-  const updated = await Result.findByIdAndUpdate(params.id, body, { new: true });
+
+  const updated = await Result.findByIdAndUpdate(id, body, { new: true });
+  if (!updated)
+    return new Response(JSON.stringify({ message: 'Result not found' }), { status: 404 });
+
   return new Response(JSON.stringify(updated), { status: 200 });
 }
