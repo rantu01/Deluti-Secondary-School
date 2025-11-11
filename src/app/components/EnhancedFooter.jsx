@@ -143,7 +143,7 @@ const EnhancedFooter = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
             onClick={scrollToTop}
-            className="fixed bottom-28 right-8 w-14 h-14 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl shadow-2xl z-50 flex items-center justify-center hover:shadow-3xl transition-all duration-300 group"
+            className="fixed bottom-28 right-8 w-14 h-14 bg-blue-600  text-white rounded-2xl shadow-2xl z-50 flex items-center justify-center hover:shadow-3xl transition-all duration-300 group"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
@@ -161,7 +161,7 @@ const EnhancedFooter = () => {
         className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white rounded-3xl shadow-2xl mx-4  overflow-hidden"
       >
         {/* Decorative Top Border */}
-        <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-1 w-full"></div>
+        
 
         <div className="p-8 lg:p-12">
           <motion.div
