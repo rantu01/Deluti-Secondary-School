@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 
 const images = [
-  "/photo1.avif",
+  "/photo1.jpg",
   "/photo2.jpg",
   "/photo3.jpg",
+  "/photo4.jpg",
 ];
 
 export default function Hero() {
@@ -20,7 +21,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <div className="relative w-full h-64 sm:h-96 md:h-[500px] overflow-hidden rounded-2xl shadow-lg">
+    <div className="relative w-full h-64 sm:h-96 md:h-[300px] overflow-hidden rounded-2xl shadow-lg">
       <img
         src={images[currentImage]}
         alt="Hero Image"

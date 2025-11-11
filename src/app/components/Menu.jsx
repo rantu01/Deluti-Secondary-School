@@ -108,7 +108,7 @@ export default function EnhancedMenu() {
 
             {/* Management Dropdown for Logged-in Users */}
             {user && (
-              <Menu as="div" className="relative">
+              <Menu as="div" className="relative ">
                 <Menu.Button
                   as={motion.div}
                   whileHover={{ scale: 1.05 }}

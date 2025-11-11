@@ -13,3 +13,32 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Particle Background Animation */
+.particle-bg {
+  background-image: url('/particle-bg.jpg'); /* আপনার particle image path দিন */
+  animation: floatBackground 60s infinite linear;
+}
+
+@keyframes floatBackground {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.05) rotate(1deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(0deg);
+  }
+  75% {
+    transform: scale(1.05) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Alternative: যদি multiple particle images ব্যবহার করতে চান */
+/* .particle-bg {
+  background-image: url('/particles.png');
+  animation: slowFloat 120s infinite linear;
+} */

@@ -386,9 +386,7 @@ function TeacherCard({ teacher, index }) {
         <div className="absolute inset-0 bg-black opacity-10"></div>
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-4">
-            <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
-              <FiUser className="w-8 h-8" />
-            </div>
+            
             {teacher.experience && (
               <div className="text-right">
                 <span className="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium">
@@ -444,15 +442,7 @@ function TeacherCard({ teacher, index }) {
           )}
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex space-x-2 mt-6 pt-4 border-t border-gray-100">
-          <button className="flex-1 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 py-2 px-3 rounded-lg text-sm font-medium transition-colors duration-200">
-            Profile
-          </button>
-          <button className="flex-1 bg-gray-50 text-gray-600 hover:bg-gray-100 py-2 px-3 rounded-lg text-sm font-medium transition-colors duration-200">
-            Contact
-          </button>
-        </div>
+        
       </div>
     </motion.div>
   );

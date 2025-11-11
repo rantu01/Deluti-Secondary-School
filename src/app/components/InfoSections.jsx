@@ -26,8 +26,7 @@ const InfoSections = () => {
 
   const contactInfo = [
     { icon: Phone, title: "+৮৮০ ১৭XX-XXXXXX", subtitle: "প্রধান শিক্ষক", description: "সকাল ৯:০০ - বিকাল ৪:০০", color: "blue", href: "tel:+88017XXXXXXXX" },
-    { icon: Mail, title: "info@delutischool.edu.bd", subtitle: "ইমেইল", description: "২৪ ঘন্টার মধ্যে উত্তর", color: "green", href: "mailto:info@delutischool.edu.bd" },
-    { icon: MapPin, title: "ডেলুটি, জেসোর", subtitle: "খুলনা বিভাগ", description: "বাংলাদেশ", color: "purple", href: "https://maps.google.com" },
+    { icon: MapPin, title: "দেলুটি, যশোর", subtitle: "খুলনা বিভাগ", description: "বাংলাদেশ", color: "purple", href: "https://maps.google.com" },
     { icon: Clock, title: "সময়সূচী", subtitle: "শনি - বৃহস্পতি", description: "সকাল ৯:০০ - বিকাল ৪:০০", color: "orange", href: "/schedule" }
   ];
 
@@ -74,7 +73,7 @@ const InfoSections = () => {
 
             {/* Description */}
             <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="text-blue-100 text-sm sm:text-base md:text-lg leading-relaxed mb-6 sm:mb-8">
-              ডেলুটি মাধ্যমিক বিদ্যালয় জেসোর শিক্ষা বোর্ডের অধীনে একটি স্বনামধন্য শিক্ষাপ্রতিষ্ঠান। আমরা শিক্ষার্থীদের সার্বিক উন্নতি, নৈতিকতা ও দেশপ্রেমে উদ্বুদ্ধকরনের জন্য প্রতিশ্রুতিবদ্ধ।
+              দেলুটি মাধ্যমিক বিদ্যালয় যশোর শিক্ষা বোর্ডের অধীনে একটি স্বনামধন্য শিক্ষাপ্রতিষ্ঠান। আমরা শিক্ষার্থীদের সার্বিক উন্নতি, নৈতিকতা ও দেশপ্রেমে উদ্বুদ্ধকরনের জন্য প্রতিশ্রুতিবদ্ধ।
             </motion.p>
 
             {/* Stats Grid */}

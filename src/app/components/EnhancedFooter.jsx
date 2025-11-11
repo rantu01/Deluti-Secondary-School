@@ -35,16 +35,16 @@ const EnhancedFooter = () => {
 
   const footerSections = [
     {
-      title: "ডেলুটি মাধ্যমিক বিদ্যালয়",
+      title: "দেলুটি মাধ্যমিক বিদ্যালয়",
       content: (
         <div className="space-y-4">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg">
               <School className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="font-bold text-xl text-white">ডেলুটি মাধ্যমিক বিদ্যালয়</h3>
-              <p className="text-blue-200 text-sm">জেসোর শিক্ষা বোর্ড</p>
+              <h3 className="font-bold text-xl text-white">দেলুটি মাধ্যমিক বিদ্যালয়</h3>
+              <p className="text-blue-200 text-sm">যশোর শিক্ষা বোর্ড</p>
             </div>
           </div>
           <p className="text-gray-300 leading-relaxed">
@@ -86,7 +86,7 @@ const EnhancedFooter = () => {
       content: (
         <ul className="space-y-4">
           {[
-            { icon: MapPin, text: "ডেলুটি, জেসোর, বাংলাদেশ", subtext: "খুলনা বিভাগ", color: "text-green-400" },
+            { icon: MapPin, text: "দেলুটি, যশোর, বাংলাদেশ", subtext: "খুলনা বিভাগ", color: "text-green-400" },
             { icon: Phone, text: "+৮৮০ ১৭XX-XXXXXX", subtext: "প্রধান শিক্ষক", color: "text-blue-400" },
             { icon: Mail, text: "info@delutischool.edu.bd", subtext: "ইমেইল", color: "text-purple-400" }
           ].map((contact, idx) => (
@@ -158,7 +158,7 @@ const EnhancedFooter = () => {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white rounded-3xl shadow-2xl mx-4 mb-4 overflow-hidden"
+        className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white rounded-3xl shadow-2xl mx-4  overflow-hidden"
       >
         {/* Decorative Top Border */}
         <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-1 w-full"></div>
@@ -200,7 +200,7 @@ const EnhancedFooter = () => {
 
             <div className="text-center lg:text-right">
               <p className="text-gray-400 flex flex-col sm:flex-row items-center justify-center lg:justify-end space-x-0 sm:space-x-2">
-                <span>© {currentYear} ডেলুটি মাধ্যমিক বিদ্যালয়</span>
+                <span>© {currentYear} দেলুটি মাধ্যমিক বিদ্যালয়</span>
                 <span className="hidden sm:inline">•</span>
                 <span>সকল অধিকার সংরক্ষিত</span>
               </p>

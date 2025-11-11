@@ -10,36 +10,39 @@ import NoticeSection from "./components/NoticeSection";
 import QuickLinksSidebar from "./components/QuickLinksSidebar";
 import "./globals.css";
 import { AuthProvider } from "./lib/AuthContext";
+import {School} from 'lucide-react';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
-      <section className="space-y-8 max-w-7xl mx-auto px-4">
+    <div className="min-h-screen bg-amber-50 rounded-2xl p-4">
+      <section className="space-y-8 max-w-6xl mx-auto px-4">
         {/* Header */}
-        <header className="bg-white/80 backdrop-blur-lg shadow-lg rounded-2xl mt-4 flex justify-between items-center px-8 py-5 border border-white/20">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-lg">D</span>
+        
+        <header className="bg-white/80 backdrop-blur-xl shadow-xl rounded-2xl flex justify-between items-center px-8 py-5 border border-white/30 transition-all duration-300 hover:shadow-2xl font-sans">
+          {/* Left Side - Logo + Title */}
+          <div className="flex items-center space-x-4">
+            <div className="relative w-14 h-14 bg-blue-600  rounded-2xl flex items-center justify-center shadow-lg overflow-hidden">
+              <School className="w-8 h-8 text-white" />
+              <div className="absolute inset-0 bg-white/10 animate-pulse rounded-2xl" />
             </div>
+
             <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-2xl md:text-2xl  text-black bg-clip-text  tracking-tight">
                 Deluti Secondary School
               </h1>
-              <p className="text-sm text-gray-600">Jessore Education Board</p>
+              <p className="text-sm text-gray-600 font-medium mt-0.5">
+                দেলুটি মাধ্যমিক বিদ্যালয়
+              </p>
             </div>
           </div>
 
-          {/* Auth buttons */}
+          {/* Right Side - Auth Buttons */}
           <AuthButtons />
         </header>
-
         {/* Hero Section */}
         <Hero />
-        
-
         {/* Menu */}
         <Menu />
-
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Main Content */}
           <div className="flex-1">
@@ -60,9 +63,7 @@ export default function HomePage() {
 
           <QuickLinksSidebar></QuickLinksSidebar>
         </div>
-
         {/* Footer */}
-
         <EnhancedFooter></EnhancedFooter>
       </section>
     </div>

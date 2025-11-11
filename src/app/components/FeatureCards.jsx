@@ -56,7 +56,7 @@ const FeatureCards = () => {
       description: "আমাদের অভিজ্ঞ ও প্রশিক্ষিত শিক্ষকমণ্ডলীর সাথে পরিচিত হোন। তাদের Qualifications ও Expertise সম্পর্কে জানুন।",
       color: "orange",
       stats: "২৫+ শিক্ষক",
-      duration: "সর্বোচ্চ квалификации",
+      duration: "সর্বোচ্চ ",
       link: "শিক্ষকবৃন্দ দেখুন",
       href: "/teachers",
       features: ["প্রোফাইল ভিউ", "বিষয় বিশেষজ্ঞ", "অভিজ্ঞতা"]
@@ -141,14 +141,14 @@ const FeatureCards = () => {
                 <p className="text-gray-600 text-sm sm:text-base mb-3 sm:mb-4 leading-relaxed">{feature.description}</p>
 
                 {/* Features List */}
-                <div className="space-y-1 sm:space-y-2 mb-3 sm:mb-4">
+                {/* <div className="space-y-1 sm:space-y-2 mb-3 sm:mb-4">
                   {feature.features.map((item, idx) => (
                     <div key={idx} className="flex items-center space-x-2 text-gray-500 text-xs sm:text-sm">
                       <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-green-500" />
                       <span>{item}</span>
                     </div>
                   ))}
-                </div>
+                </div> */}
               </div>
 
               {/* Footer */}
