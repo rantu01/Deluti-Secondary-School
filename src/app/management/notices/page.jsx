@@ -75,7 +75,7 @@ export default function NoticesManagement() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-3 sm:p-4 lg:p-6 rounded-2xl">
       <div className="max-w-5xl mx-auto space-y-6">
 
         {/* Header */}

@@ -275,7 +275,7 @@ function ResultsManagement() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50/50 p-4 lg:p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-3 sm:p-4 lg:p-6 rounded-2xl">
       <motion.div initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} className="max-w-7xl mx-auto">
 
         {/* Header */}

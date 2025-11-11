@@ -1,14 +1,21 @@
 'use client';
+import { useState } from 'react';
 import AdminSidebar from '../components/AdminSidebar';
-import Menu from '../components/Menu';
 import ProtectedClient from '../components/ProtectedClient';
 
 export default function ManagementLayout({ children }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <ProtectedClient>
-      <div className="min-h-screen bg-gray-100 max-w-6xl mx-auto">
-        <AdminSidebar />
-        <div className="container mx-auto p-4">{children}</div>
+      <div className="min-h-screen  flex">
+        {/* Sidebar */}
+        <AdminSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+
+        {/* Main content */}
+        <div className="flex-1 lg:ml-64 p-4 max-w-6xl mx-auto">
+          {children}
+        </div>
       </div>
     </ProtectedClient>
   );
